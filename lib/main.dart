@@ -16,6 +16,10 @@ class PerfumeShopApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFFDF0F0),
         fontFamily: 'Georgia',
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFB07070),
+          background: const Color(0xFFFDF0F0),
+        ),
         useMaterial3: true,
       ),
       home: const BrowsePage(),
