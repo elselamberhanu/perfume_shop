@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'detail_page.dart';
+import 'language_provider.dart'; // 👈 add
+import 'translations.dart';
 
 // Our perfume data model
 class Perfume {
@@ -106,6 +108,7 @@ class _BrowsePageState extends State<BrowsePage> {
 
   @override
   Widget build(BuildContext context) {
+    final lang = LanguageScope.of(context);
     return Scaffold(
       backgroundColor: const Color(0xFFFDF0F0),
       // ── TOP APP BAR ──
@@ -116,8 +119,8 @@ class _BrowsePageState extends State<BrowsePage> {
           padding: EdgeInsets.only(left: 16),
           child: Icon(Icons.menu, color: Color(0xFF5C3D3D)),
         ),
-        title: const Text(
-          'MAISON DE PARFUM',
+        title: Text(
+          t('app_title', lang.isAmharic),
           style: TextStyle(
             color: Color(0xFF5C3D3D),
             fontSize: 16,
@@ -127,6 +130,30 @@ class _BrowsePageState extends State<BrowsePage> {
         ),
         centerTitle: true,
         actions: [
+          GestureDetector(
+            onTap: () => LanguageScope.of(context).toggle(),
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: const Color(0xFFB07070).withOpacity(0.15),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: const Color(0xFFB07070).withOpacity(0.4),
+                ),
+              ),
+              // Shows 'አማ' when in English (click to go Amharic)
+              // Shows 'EN' when in Amharic (click to go English)
+              child: Text(
+                LanguageScope.of(context).isAmharic ? 'EN' : 'አማ',
+                style: const TextStyle(
+                  color: Color(0xFF5C3D3D),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Stack(
@@ -206,10 +233,10 @@ class _BrowsePageState extends State<BrowsePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.fromLTRB(20, 16, 20, 4),
             child: Text(
-              'Featured',
+              t('featured', lang.isAmharic),
               style: TextStyle(
                 color: Color(0xFFB07070),
                 fontSize: 13,
@@ -217,10 +244,10 @@ class _BrowsePageState extends State<BrowsePage> {
               ),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.fromLTRB(20, 0, 20, 16),
             child: Text(
-              'Collections',
+              t('collections', lang.isAmharic),
               style: TextStyle(
                 color: Color(0xFF5C3D3D),
                 fontSize: 26,
@@ -230,9 +257,9 @@ class _BrowsePageState extends State<BrowsePage> {
           ),
           Expanded(
             child: filteredPerfumes.isEmpty
-                ? const Center(
+                ? Center(
                     child: Text(
-                      'No perfumes in this category yet.',
+                      t('no_perfumes', lang.isAmharic),
                       style: TextStyle(color: Color(0xFF5C3D3D)),
                     ),
                   )

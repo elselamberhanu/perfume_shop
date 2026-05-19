@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'browse_page.dart';
+import 'language_provider.dart';
+import 'translations.dart';
 
 class DetailPage extends StatelessWidget {
   final Perfume perfume;
@@ -7,6 +9,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lang = LanguageScope.of(context);
     return Scaffold(
       backgroundColor: const Color(0xFFFDF0F0),
       body: CustomScrollView(
@@ -144,8 +147,8 @@ class DetailPage extends StatelessWidget {
                     const SizedBox(height: 28),
 
                     // Scent tags
-                    const Text(
-                      'SCENT PROFILE',
+                    Text(
+                      t('scent_profile', lang.isAmharic),
                       style: TextStyle(
                         color: Color(0xFFB07070),
                         fontSize: 11,
@@ -186,8 +189,8 @@ class DetailPage extends StatelessWidget {
                     const SizedBox(height: 28),
 
                     // Description
-                    const Text(
-                      'DESCRIPTION',
+                    Text(
+                      t('description', lang.isAmharic),
                       style: TextStyle(
                         color: Color(0xFFB07070),
                         fontSize: 11,
@@ -208,8 +211,8 @@ class DetailPage extends StatelessWidget {
                     const SizedBox(height: 36),
 
                     // Size selector
-                    const Text(
-                      'SIZE',
+                    Text(
+                      t('size', lang.isAmharic),
                       style: TextStyle(
                         color: Color(0xFFB07070),
                         fontSize: 11,
@@ -260,7 +263,9 @@ class DetailPage extends StatelessWidget {
                         onPressed: () {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('${perfume.name} added to basket!'),
+                              content: Text(
+                                '${perfume.name} ${t('added_to_basket', lang.isAmharic)}',
+                              ),
                               backgroundColor: const Color(0xFFB07070),
                               behavior: SnackBarBehavior.floating,
                               shape: RoundedRectangleBorder(
@@ -277,13 +282,13 @@ class DetailPage extends StatelessWidget {
                           ),
                           elevation: 0,
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.shopping_bag_outlined, size: 20),
                             SizedBox(width: 10),
                             Text(
-                              'Add to Basket',
+                              t('add_to_basket', lang.isAmharic),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
