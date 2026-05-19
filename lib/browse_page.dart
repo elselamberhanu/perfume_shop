@@ -9,7 +9,7 @@ class Perfume {
   final double price;
   final String description;
   final Color cardColor;
-  final IconData icon;
+  final String imagePath;
 
   const Perfume({
     required this.name,
@@ -18,7 +18,7 @@ class Perfume {
     required this.price,
     required this.description,
     required this.cardColor,
-    required this.icon,
+    required this.imagePath,
   });
 }
 
@@ -32,7 +32,7 @@ const List<Perfume> allPerfumes = [
     description:
         'A timeless oriental fragrance. Shalimar opens with fresh citrus top notes, and its heart reveals a rich blend of iris and jasmine, resting on a warm base of vanilla and incense.',
     cardColor: Color(0xFFE8C9C9),
-    icon: Icons.spa,
+    imagePath: 'assets/images/per1.jpg',
   ),
   Perfume(
     name: 'J\'Adore',
@@ -42,7 +42,7 @@ const List<Perfume> allPerfumes = [
     description:
         'The absolute femininity of Dior. A floral bouquet of ylang-ylang, Damascus rose and jasmine grandiflorum, J\'Adore captures the essence of modern elegance.',
     cardColor: Color(0xFFD4B896),
-    icon: Icons.local_florist,
+    imagePath: 'assets/images/per2.jpg',
   ),
   Perfume(
     name: 'Chance',
@@ -52,7 +52,7 @@ const List<Perfume> allPerfumes = [
     description:
         'A completely round and luminous fragrance. Fresh and clean with notes of pink pepper, jasmine, patchouli and white musks — Chance is the unexpected Chanel.',
     cardColor: Color(0xFFC5B8D4),
-    icon: Icons.auto_awesome,
+    imagePath: 'assets/images/per3.jpg',
   ),
   Perfume(
     name: 'Black Opium',
@@ -62,7 +62,7 @@ const List<Perfume> allPerfumes = [
     description:
         'The original rock \'n\' roll fragrance. An addictive gourmand scent with black coffee, white flowers and vanilla — bold, edgy and deeply sensual.',
     cardColor: Color(0xFF9E8EA0),
-    icon: Icons.nightlight_round,
+    imagePath: 'assets/images/per4.jpg',
   ),
   Perfume(
     name: 'Aqua Universalis',
@@ -72,7 +72,7 @@ const List<Perfume> allPerfumes = [
     description:
         'Blur gender boundaries and be unconventionally free with this flowery-vanilla eau de parfum. Clean, fresh and universally wearable.',
     cardColor: Color(0xFFB8D4C8),
-    icon: Icons.water_drop,
+    imagePath: 'assets/images/per5.jpg',
   ),
   Perfume(
     name: 'Miss Dior',
@@ -82,7 +82,7 @@ const List<Perfume> allPerfumes = [
     description:
         'A declaration of love. Miss Dior blooms with notes of Grasse rose absolute, lily of the valley and patchouli — a chic, romantic fragrance for the modern woman.',
     cardColor: Color(0xFFE8B8C4),
-    icon: Icons.favorite,
+    imagePath: 'assets/images/per6.jpg',
   ),
 ];
 
@@ -298,19 +298,26 @@ class _PerfumeCard extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      perfume.icon,
-                      size: 56,
-                      color: Colors.white.withOpacity(0.9),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Image.asset(
+                          perfume.imagePath, // loads your image file
+                          fit: BoxFit
+                              .contain, // scales it to fit without cropping
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      perfume.brand.toUpperCase(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.5,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Text(
+                        perfume.brand.toUpperCase(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 1.5,
+                        ),
                       ),
                     ),
                   ],

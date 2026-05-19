@@ -49,13 +49,22 @@ class DetailPage extends StatelessWidget {
                     const SizedBox(height: 60),
                     // Big perfume icon
                     Container(
-                      width: 140,
-                      height: 140,
+                      width: 180,
+                      height: 180,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withOpacity(0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(perfume.icon, size: 80, color: Colors.white),
+                      child: ClipOval(
+                        // clips the image into a circle shape
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset(
+                            perfume.imagePath,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 16),
                     Text(
