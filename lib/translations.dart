@@ -1,9 +1,7 @@
-// A simple key-value store for all app text in both languages.
-// The key is a short code like 'app_title', the value is a map
-// with 'en' (English) and 'am' (Amharic) versions.
+// most amharic translations do not make sense for these perfumes like fragnance description which was left out because it will just be senseless
 
 const Map<String, Map<String, String>> translations = {
-  'app_title': {'en': 'MAISON DE PARFUM', 'am': 'የሽቶ ቤት'},
+  'app_title': {'en': 'ELI PERFUME', 'am': 'ኤልይ ሽቶ'},
   'featured': {'en': 'Featured', 'am': 'ተለይቶ የቀረበ'},
   'collections': {'en': 'Collections', 'am': 'ስብስቦች'},
   'scent_profile': {'en': 'SCENT PROFILE', 'am': 'የሽቶ መገለጫ'},
@@ -40,8 +38,7 @@ const Map<String, Map<String, String>> translations = {
   'scent_woody': {'en': 'Woody', 'am': 'የእንጨት መዓዛ'},
 };
 
-// A handy helper function. Instead of writing the full lookup every time,
-// any widget can just call: t('app_title', isAmharic)
+// makes it easier instead of writing the full lookup
 String t(String key, bool isAmharic) {
   return translations[key]?[isAmharic ? 'am' : 'en'] ?? key;
 }

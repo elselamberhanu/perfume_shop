@@ -19,7 +19,7 @@ class PerfumeShopApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Perfume Shop',
         debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme, // Using centralized theme
+        theme: AppTheme.lightTheme,
         home: const BrowsePage(),
       ),
     );

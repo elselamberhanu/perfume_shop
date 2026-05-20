@@ -2,43 +2,25 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Main Background Colors
-  static const Color backgroundLight = Color(
-    0xFFF7F2FA,
-  ); // Light lavender-white background
+  static const Color backgroundLight = Color(0xFFF7F2FA);
   static const Color surfaceWhite = Colors.white;
 
   // Primary Colors
-  static const Color primaryPurple = Color(
-    0xFF5E5791,
-  ); // Main purple for text, buttons
-  static const Color secondaryBerry = Color(
-    0xFF7B5265,
-  ); // Berry pink for labels, hearts
-  static const Color mutedGrayPurple = Color(
-    0xFF5F5C71,
-  ); // Muted gray-purple for secondary text
+  static const Color primaryPurple = Color(0xFF5E5791);
+  static const Color secondaryBerry = Color(0xFF7B5265);
+  static const Color mutedGrayPurple = Color(0xFF5F5C71);
 
-  // Accent & Border Colors
-  static const Color lightLavender = Color(
-    0xFFC7BFFF,
-  ); // Light lavender for borders
-  static const Color softLavender = Color(
-    0xFFE5DEFF,
-  ); // Soft lavender for gradients
-  static const Color softPink = Color(0xFFFFD8E7); // Soft pink for Black Opium
-  static const Color softLavenderBg = Color(
-    0xFFE5DFF9,
-  ); // Soft lavender background
+  static const Color lightLavender = Color(0xFFC7BFFF);
+  static const Color softLavender = Color(0xFFE5DEFF);
+  static const Color softPink = Color(0xFFFFD8E7);
+  static const Color softLavenderBg = Color(0xFFE5DFF9);
 
-  // Perfume Specific Accent Colors
-  static const Color shalimarAccent = Color(0xFF5E5791); // Main purple
-  static const Color jadoreAccent = Color(0xFF7B5265); // Berry pink
-  static const Color chanceAccent = Color(0xFFC7BFFF); // Light lavender
-  static const Color blackOpiumAccent = Color(0xFFFFD8E7); // Soft pink
-  static const Color aquaUniversalisAccent = Color(
-    0xFF5F5C71,
-  ); // Muted gray-purple
-  static const Color missDiorAccent = Color(0xFFE5DEFF); // Light purple-white
+  static const Color shalimarAccent = Color(0xFF5E5791);
+  static const Color jadoreAccent = Color(0xFF7B5265);
+  static const Color chanceAccent = Color(0xFFC7BFFF);
+  static const Color blackOpiumAccent = Color(0xFFFFD8E7);
+  static const Color aquaUniversalisAccent = Color(0xFF5F5C71);
+  static const Color missDiorAccent = Color(0xFFE5DEFF);
 }
 
 class AppTheme {
@@ -130,7 +112,6 @@ class AppTheme {
     );
   }
 
-  // Common gradients used throughout the app
   static const LinearGradient categoryGradient = LinearGradient(
     colors: [AppColors.primaryPurple, AppColors.secondaryBerry],
     begin: Alignment.topLeft,
@@ -149,7 +130,6 @@ class AppTheme {
     end: Alignment.bottomRight,
   );
 
-  // Common box shadows
   static BoxShadow get softShadow => BoxShadow(
     color: AppColors.primaryPurple.withOpacity(0.08),
     blurRadius: 12,

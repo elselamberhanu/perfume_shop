@@ -5,7 +5,7 @@ import 'translations.dart';
 import 'language_toggle.dart';
 import 'app_theme.dart';
 
-// Our perfume data model
+//perfume data model
 class Perfume {
   final String name;
   final String brand;
@@ -26,9 +26,8 @@ class Perfume {
   });
 }
 
-// Our list of perfumes - REMOVED 'const' keyword
+//list of perfumes
 final List<Perfume> allPerfumes = [
-  // Changed from 'const' to 'final'
   Perfume(
     name: 'Shalimar',
     brand: 'Guerlain',
