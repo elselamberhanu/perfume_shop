@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'detail_page.dart';
-import 'language_provider.dart'; // 👈 add
+import 'language_provider.dart';
 import 'translations.dart';
+import 'language_toggle.dart';
+import 'app_theme.dart';
 
 // Our perfume data model
 class Perfume {
@@ -10,8 +12,8 @@ class Perfume {
   final String size;
   final double price;
   final String description;
-  final Color cardColor;
   final String imagePath;
+  final Color accentColor;
 
   const Perfume({
     required this.name,
@@ -19,13 +21,14 @@ class Perfume {
     required this.size,
     required this.price,
     required this.description,
-    required this.cardColor,
     required this.imagePath,
+    required this.accentColor,
   });
 }
 
-// Our list of perfumes
-const List<Perfume> allPerfumes = [
+// Our list of perfumes - REMOVED 'const' keyword
+final List<Perfume> allPerfumes = [
+  // Changed from 'const' to 'final'
   Perfume(
     name: 'Shalimar',
     brand: 'Guerlain',
@@ -33,8 +36,8 @@ const List<Perfume> allPerfumes = [
     price: 70.00,
     description:
         'A timeless oriental fragrance. Shalimar opens with fresh citrus top notes, and its heart reveals a rich blend of iris and jasmine, resting on a warm base of vanilla and incense.',
-    cardColor: Color(0xFFE8C9C9),
     imagePath: 'assets/images/per1.jpg',
+    accentColor: AppColors.shalimarAccent,
   ),
   Perfume(
     name: 'J\'Adore',
@@ -43,8 +46,8 @@ const List<Perfume> allPerfumes = [
     price: 85.00,
     description:
         'The absolute femininity of Dior. A floral bouquet of ylang-ylang, Damascus rose and jasmine grandiflorum, J\'Adore captures the essence of modern elegance.',
-    cardColor: Color(0xFFD4B896),
     imagePath: 'assets/images/per2.jpg',
+    accentColor: AppColors.jadoreAccent,
   ),
   Perfume(
     name: 'Chance',
@@ -53,8 +56,8 @@ const List<Perfume> allPerfumes = [
     price: 95.00,
     description:
         'A completely round and luminous fragrance. Fresh and clean with notes of pink pepper, jasmine, patchouli and white musks — Chance is the unexpected Chanel.',
-    cardColor: Color(0xFFC5B8D4),
     imagePath: 'assets/images/per3.jpg',
+    accentColor: AppColors.chanceAccent,
   ),
   Perfume(
     name: 'Black Opium',
@@ -63,8 +66,8 @@ const List<Perfume> allPerfumes = [
     price: 80.00,
     description:
         'The original rock \'n\' roll fragrance. An addictive gourmand scent with black coffee, white flowers and vanilla — bold, edgy and deeply sensual.',
-    cardColor: Color(0xFF9E8EA0),
     imagePath: 'assets/images/per4.jpg',
+    accentColor: AppColors.blackOpiumAccent,
   ),
   Perfume(
     name: 'Aqua Universalis',
@@ -73,8 +76,8 @@ const List<Perfume> allPerfumes = [
     price: 65.00,
     description:
         'Blur gender boundaries and be unconventionally free with this flowery-vanilla eau de parfum. Clean, fresh and universally wearable.',
-    cardColor: Color(0xFFB8D4C8),
     imagePath: 'assets/images/per5.jpg',
+    accentColor: AppColors.aquaUniversalisAccent,
   ),
   Perfume(
     name: 'Miss Dior',
@@ -83,8 +86,8 @@ const List<Perfume> allPerfumes = [
     price: 75.00,
     description:
         'A declaration of love. Miss Dior blooms with notes of Grasse rose absolute, lily of the valley and patchouli — a chic, romantic fragrance for the modern woman.',
-    cardColor: Color(0xFFE8B8C4),
     imagePath: 'assets/images/per6.jpg',
+    accentColor: AppColors.missDiorAccent,
   ),
 ];
 
@@ -110,58 +113,33 @@ class _BrowsePageState extends State<BrowsePage> {
   Widget build(BuildContext context) {
     final lang = LanguageScope.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF0F0),
-      // ── TOP APP BAR ──
+      backgroundColor: AppColors.backgroundLight,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFDF0F0),
+        backgroundColor: AppColors.backgroundLight,
         elevation: 0,
         leading: const Padding(
           padding: EdgeInsets.only(left: 16),
-          child: Icon(Icons.menu, color: Color(0xFF5C3D3D)),
+          child: Icon(Icons.menu, color: AppColors.primaryPurple),
         ),
         title: Text(
           t('app_title', lang.isAmharic),
-          style: TextStyle(
-            color: Color(0xFF5C3D3D),
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+          style: const TextStyle(
+            color: AppColors.primaryPurple,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
             letterSpacing: 2,
           ),
         ),
-        centerTitle: true,
         actions: [
-          GestureDetector(
-            onTap: () => LanguageScope.of(context).toggle(),
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: const Color(0xFFB07070).withOpacity(0.15),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: const Color(0xFFB07070).withOpacity(0.4),
-                ),
-              ),
-              // Shows 'አማ' when in English (click to go Amharic)
-              // Shows 'EN' when in Amharic (click to go English)
-              child: Text(
-                LanguageScope.of(context).isAmharic ? 'EN' : 'አማ',
-                style: const TextStyle(
-                  color: Color(0xFF5C3D3D),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-          ),
+          const LanguageToggle(),
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Stack(
               children: [
                 const Icon(
                   Icons.shopping_bag_outlined,
-                  color: Color(0xFF5C3D3D),
-                  size: 26,
+                  color: AppColors.primaryPurple,
+                  size: 24,
                 ),
                 Positioned(
                   right: 0,
@@ -170,7 +148,7 @@ class _BrowsePageState extends State<BrowsePage> {
                     width: 8,
                     height: 8,
                     decoration: const BoxDecoration(
-                      color: Color(0xFFB07070),
+                      color: AppColors.secondaryBerry,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -179,11 +157,10 @@ class _BrowsePageState extends State<BrowsePage> {
             ),
           ),
         ],
-        // ── CATEGORY TABS under the app bar ──
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(56),
+          preferredSize: const Size.fromHeight(50),
           child: Container(
-            height: 56,
+            height: 50,
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -193,32 +170,32 @@ class _BrowsePageState extends State<BrowsePage> {
                 final isSelected = _selectedCategory == index;
                 return GestureDetector(
                   onTap: () => setState(() => _selectedCategory = index),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
+                  child: Container(
                     margin: const EdgeInsets.only(right: 8),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? const Color(0xFFB07070)
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(20),
+                          ? AppColors.primaryPurple
+                          : AppColors.surfaceWhite,
+                      borderRadius: BorderRadius.circular(25),
                       border: Border.all(
                         color: isSelected
-                            ? const Color(0xFFB07070)
-                            : const Color(0xFFB07070).withOpacity(0.4),
+                            ? AppColors.primaryPurple
+                            : AppColors.lightLavender,
                       ),
                     ),
-                    child: Center(
-                      child: Text(
-                        categories[index],
-                        style: TextStyle(
-                          color: isSelected
-                              ? Colors.white
-                              : const Color(0xFF5C3D3D),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 1,
-                        ),
+                    child: Text(
+                      categories[index],
+                      style: TextStyle(
+                        color: isSelected
+                            ? Colors.white
+                            : AppColors.primaryPurple,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.8,
                       ),
                     ),
                   ),
@@ -228,30 +205,30 @@ class _BrowsePageState extends State<BrowsePage> {
           ),
         ),
       ),
-
-      // ── BODY: perfume grid ──
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(20, 16, 20, 4),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 4),
             child: Text(
-              t('featured', lang.isAmharic),
+              'DISCOVER',
               style: TextStyle(
-                color: Color(0xFFB07070),
-                fontSize: 13,
-                letterSpacing: 1,
+                color: AppColors.secondaryBerry,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 2,
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 16),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
             child: Text(
               t('collections', lang.isAmharic),
-              style: TextStyle(
-                color: Color(0xFF5C3D3D),
-                fontSize: 26,
+              style: const TextStyle(
+                color: AppColors.primaryPurple,
+                fontSize: 32,
                 fontWeight: FontWeight.bold,
+                letterSpacing: -0.5,
               ),
             ),
           ),
@@ -260,17 +237,20 @@ class _BrowsePageState extends State<BrowsePage> {
                 ? Center(
                     child: Text(
                       t('no_perfumes', lang.isAmharic),
-                      style: TextStyle(color: Color(0xFF5C3D3D)),
+                      style: const TextStyle(color: AppColors.mutedGrayPurple),
                     ),
                   )
                 : GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          crossAxisSpacing: 12,
-                          mainAxisSpacing: 12,
-                          childAspectRatio: 0.75,
+                          crossAxisSpacing: 14,
+                          mainAxisSpacing: 14,
+                          childAspectRatio: 0.68,
                         ),
                     itemCount: filteredPerfumes.length,
                     itemBuilder: (context, index) {
@@ -292,101 +272,105 @@ class _PerfumeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => DetailPage(perfume: perfume)),
-      ),
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                DetailPage(perfume: perfume),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(0.5, 0.0);
+                  const end = Offset.zero;
+                  const curve = Curves.easeInOutCubic;
+                  var tween = Tween(
+                    begin: begin,
+                    end: end,
+                  ).chain(CurveTween(curve: curve));
+                  var offsetAnimation = animation.drive(tween);
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: FadeTransition(opacity: animation, child: child),
+                  );
+                },
+            transitionDuration: const Duration(milliseconds: 400),
+          ),
+        );
+      },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.surfaceWhite,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFFB07070).withOpacity(0.1),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          boxShadow: [AppTheme.cardShadow],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            // Colored image area
-            Expanded(
-              flex: 3,
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: perfume.cardColor,
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(20),
-                  ),
+            SizedBox(
+              width: double.infinity,
+              height: 150,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(20),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Image.asset(
-                          perfume.imagePath, // loads your image file
-                          fit: BoxFit
-                              .contain, // scales it to fit without cropping
-                        ),
-                      ),
+                child: Container(
+                  color: perfume.accentColor.withOpacity(0.1),
+                  child: Hero(
+                    tag: 'image_${perfume.name}',
+                    child: Image.asset(
+                      perfume.imagePath,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: Text(
-                        perfume.brand.toUpperCase(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 1.5,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
-            // Name and price area
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      perfume.name,
-                      style: const TextStyle(
-                        color: Color(0xFF5C3D3D),
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    perfume.name,
+                    style: const TextStyle(
+                      color: AppColors.primaryPurple,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      '${perfume.brand} • ${perfume.size}',
-                      style: TextStyle(
-                        color: const Color(0xFF5C3D3D).withOpacity(0.6),
-                        fontSize: 10,
-                      ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${perfume.brand} • ${perfume.size}',
+                    style: const TextStyle(
+                      color: AppColors.mutedGrayPurple,
+                      fontSize: 10,
                     ),
-                    Text(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 6),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
+                    decoration: AppTheme.priceTagDecoration,
+                    child: Text(
                       '£${perfume.price.toStringAsFixed(2)}',
                       style: const TextStyle(
-                        color: Color(0xFFB07070),
-                        fontSize: 15,
+                        color: AppColors.primaryPurple,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
